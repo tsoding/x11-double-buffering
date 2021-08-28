@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include <X11/Xlib.h>
+#include <X11/extensions/Xdbe.h>
 
 #include <unistd.h>
 
@@ -12,8 +13,25 @@
 #define RECT_WIDTH 300
 #define RECT_HEIGHT 300
 
+#define DB_NONE   0
+#define DB_XDBE   1
+#define DB_XIMAGE 2
+#define DB_PIXMAP 3
+
+#if DB_IMPL == DB_NONE
+#  include "./db_none.c"
+#elif DB_IMPL == DB_XDBE
+#  include "./db_xdbe.c"
+#else
+#  error "Unsupported Double Buffering approach"
+#endif
+
 int main(void)
 {
+    printf("Double Buffering Implementation: "DB_IMPL_NAME"\n");
+
+    DB db = {0};
+
     Display *display = XOpenDisplay(NULL);
     if (display == NULL) {
         fprintf(stderr, "ERROR: could not open the default display\n");
@@ -29,10 +47,10 @@ int main(void)
                         0,
                         0);
 
+    db_init(&db, display, window);
+
     XWindowAttributes wa = {0};
     XGetWindowAttributes(display, window, &wa);
-
-    GC gc = XCreateGC(display, window, 0, NULL);
 
     Atom wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(display, window, &wm_delete_window, 1);
@@ -40,8 +58,6 @@ int main(void)
     XSelectInput(display, window, KeyPressMask);
 
     XMapWindow(display, window);
-
-    XSetForeground(display, gc, 0xFF0000);
 
     int rect_x = 10;
     int rect_y = 10;
@@ -73,8 +89,9 @@ int main(void)
             }
         }
 
-        XClearArea(display, window, 0, 0, WIDTH, HEIGHT, False);
-        XFillRectangle(display, window, gc, rect_x, rect_y, RECT_WIDTH, RECT_HEIGHT);
+        db_clear(&db);
+        db_fill_rect(&db, rect_x, rect_y, RECT_WIDTH, RECT_HEIGHT);
+        db_swap_buffers(&db);
 
         int rect_nx = rect_x + rect_dx;
         if (rect_nx <= 0 || rect_nx + RECT_WIDTH >= WIDTH) {
