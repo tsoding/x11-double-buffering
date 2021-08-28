@@ -2,10 +2,10 @@
 
 Trying different approaches to Double Buffering in Pure X11 applications on Linux:
 
-- [x] No Double Buffering
-- [ ] [Xdbe](https://www.x.org/releases/X11R7.7/doc/libXext/dbelib.html)
-- [ ] Back Buffer in Pixmap
-- [ ] Back Buffer in XImage
+- [No Double Buffering](./db_none.c)
+- [Xdbe](./db_xdbe.c)
+- [Back Buffer in Pixmap](./db_pixmap.c)
+- [Back Buffer in XImage](./db_ximage.c)
 
 ## Quick Start
 
