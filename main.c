@@ -8,7 +8,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define FPS 240
+#define FPS 120
 #define RECT_WIDTH 300
 #define RECT_HEIGHT 300
 
@@ -43,8 +43,11 @@ int main(void)
 
     XSetForeground(display, gc, 0xFF0000);
 
-    int rect_x = 0;
-    int rect_y = 0;
+    int rect_x = 10;
+    int rect_y = 10;
+
+    int rect_dx = -1;
+    int rect_dy = -1;
 
     int quit = 0;
     while (!quit) {
@@ -73,8 +76,19 @@ int main(void)
         XClearArea(display, window, 0, 0, WIDTH, HEIGHT, False);
         XFillRectangle(display, window, gc, rect_x, rect_y, RECT_WIDTH, RECT_HEIGHT);
 
-        rect_x += 1;
-        rect_y += 1;
+        int rect_nx = rect_x + rect_dx;
+        if (rect_nx <= 0 || rect_nx + RECT_WIDTH >= WIDTH) {
+            rect_dx *= -1;
+        } else {
+            rect_x = rect_nx;
+        }
+
+        int rect_ny = rect_y + rect_dy;
+        if (rect_ny <= 0 || rect_ny + RECT_HEIGHT >= HEIGHT) {
+            rect_dy *= -1;
+        } else {
+            rect_y = rect_ny;
+        }
 
         usleep(1000*1000/FPS);
     }
