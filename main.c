@@ -15,13 +15,15 @@
 
 #define DB_NONE   0
 #define DB_XDBE   1
-#define DB_XIMAGE 2
-#define DB_PIXMAP 3
+#define DB_PIXMAP 2
+#define DB_XIMAGE 3
 
 #if DB_IMPL == DB_NONE
 #  include "./db_none.c"
 #elif DB_IMPL == DB_XDBE
 #  include "./db_xdbe.c"
+#elif DB_IMPL == DB_PIXMAP
+#  include "./db_pixmap.c"
 #else
 #  error "Unsupported Double Buffering approach"
 #endif
