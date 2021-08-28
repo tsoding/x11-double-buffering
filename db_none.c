@@ -18,7 +18,7 @@ void db_clear(DB *db)
     XClearArea(db->display, db->window, 0, 0, WIDTH, HEIGHT, False);
 }
 
-void db_fill_rect(DB *db, int x, int y, int w, int h)
+void db_fill_rect(DB *db, int x, int y, unsigned int w, unsigned int h)
 {
     XSetForeground(db->display, db->gc, 0xFF0000);
     XFillRectangle(db->display, db->window, db->gc, x, y, w, h);

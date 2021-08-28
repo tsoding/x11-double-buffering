@@ -29,7 +29,7 @@ void db_clear(DB *db)
     XFillRectangle(db->display, db->back_buffer, db->gc, 0, 0, WIDTH, HEIGHT);
 }
 
-void db_fill_rect(DB *db, int x, int y, int w, int h)
+void db_fill_rect(DB *db, int x, int y, unsigned int w, unsigned int h)
 {
     XSetForeground(db->display, db->gc, 0xFF0000);
     XFillRectangle(db->display, db->back_buffer, db->gc, x, y, w, h);

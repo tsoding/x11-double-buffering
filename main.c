@@ -1,6 +1,8 @@
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
 
 #include <X11/Xlib.h>
 #include <X11/extensions/Xdbe.h>
@@ -24,6 +26,8 @@
 #  include "./db_xdbe.c"
 #elif DB_IMPL == DB_PIXMAP
 #  include "./db_pixmap.c"
+#elif DB_IMPL == DB_XIMAGE
+#  include "./db_ximage.c"
 #else
 #  error "Unsupported Double Buffering approach"
 #endif
