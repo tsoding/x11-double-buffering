@@ -8,7 +8,9 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define FPS 120
+#define FPS 240
+#define RECT_WIDTH 300
+#define RECT_HEIGHT 300
 
 int main(void)
 {
@@ -69,7 +71,7 @@ int main(void)
         }
 
         XClearArea(display, window, 0, 0, WIDTH, HEIGHT, False);
-        XFillRectangle(display, window, gc, rect_x, rect_y, 100, 100);
+        XFillRectangle(display, window, gc, rect_x, rect_y, RECT_WIDTH, RECT_HEIGHT);
 
         rect_x += 1;
         rect_y += 1;
