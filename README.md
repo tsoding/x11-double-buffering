@@ -11,5 +11,8 @@ Trying different approaches to Double Buffering in Pure X11 applications on Linu
 
 ```console
 $ make
-$ ./main
+$ ./main.none
+$ ./main.xdbe
+$ ./main.pixmap
+$ ./main.ximage
 ```
