@@ -55,6 +55,8 @@ int main(void)
 
     db_init(&db, display, window);
 
+    XStoreName(display, window, "DB Implementation: "DB_IMPL_NAME);
+
     Atom wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(display, window, &wm_delete_window, 1);
 
