@@ -55,9 +55,6 @@ int main(void)
 
     db_init(&db, display, window);
 
-    XWindowAttributes wa = {0};
-    XGetWindowAttributes(display, window, &wa);
-
     Atom wm_delete_window = XInternAtom(display, "WM_DELETE_WINDOW", False);
     XSetWMProtocols(display, window, &wm_delete_window, 1);
 
